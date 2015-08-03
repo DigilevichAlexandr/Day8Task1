@@ -17,7 +17,7 @@ namespace Dya8Task1
                     iarray[i,j]=r.Next(10);
             Matrix<int> m = new Matrix<int>(10,5,iarray);
             Console.WriteLine(m);
-            m.Register(m);
+            m.Register();
             m.ChangeSingleCell(4, 2,777);
             Console.WriteLine();            
 
@@ -45,6 +45,16 @@ namespace Dya8Task1
             DiagonalMatrix<DateTime> dm = new DiagonalMatrix<DateTime>(3, dtarray);
             dm.ChangeSingleCell(2, 2, new DateTime((long)7770000000000000));
             Console.WriteLine(dm);
+                        
+            for (int i = 0; i < 10; i++)
+                for (int j = 0; j < 5; j++)
+                    iarray[i, j] = r.Next(10);
+            Matrix<int> m2 = new Matrix<int>(10, 5, iarray);
+            Console.WriteLine(m2);
+            Console.WriteLine();
+            Console.WriteLine(MatrixExtentor.Addition<int>(m,m2));
+
+            Console.WriteLine();  
 
             Console.Read();
 

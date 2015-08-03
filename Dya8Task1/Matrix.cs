@@ -25,22 +25,31 @@ namespace Dya8Task1
     }
     #endregion
 
-    //static class MatrixExtentor
-    //{
-    //    public static Matrix<double> Addition(this Matrix<double> thismatrix, Matrix<double> anothermatrix)
-    //    {
-    //        try
-    //        {
-    //            return (thismatrix+anothermatrix);
-    //        }
-    //        catch (Exception e)
-    //        {
-    //            Console.WriteLine(e.Message);
-    //        }
-    //        return default(Matrix<double>);
-    //    }
+    static class MatrixExtentor
+    {
+        public static Matrix<T> Addition<T>(this Matrix<T> m1, Matrix<T> m2)
+            //where T : double
+        {
+            try
+            {                
+                    Matrix<T> m3 = new Matrix<T>(m1.N,m1.M,new T[m1.N,m1.M]);
+                    for (int i = 0; i < m1.N; i++)
+                        for (int j = 0; j < m1.M; j++)
+                        {
+                            dynamic dtemp1 = m1[i, j];
+                            dynamic dtemp2 = m2[i, j];
+                            m3[i,j] =(T) dtemp1 + dtemp2;
+                        }
+                    return m3;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return default(Matrix<T>);
+        }
 
-    //}
+    }
 
     class Matrix<T>
     {
@@ -77,9 +86,9 @@ namespace Dya8Task1
             }
         }
 
-        public void Register(Matrix<T> m)
+        public void Register()
         {
-            m.NewValue += MatrixValue;
+            this.NewValue += MatrixValue;
         }
 
         public void MatrixValue(Object sender,NewChangeNMEventArgs<T> eventArgs)
@@ -152,29 +161,34 @@ namespace Dya8Task1
             }
             return str;   
         }
-        //public static Matrix<double> operator+(Matrix<T> m1,Matrix<double> m2)
+
+        //public static Matrix<double> operator +(Matrix<T> m1, Matrix<double> m2)
         //{
         //    try
         //    {
-        //        if(m1.N != m2.N || m1.M != m2.M)
+        //        if (m1 as new Matrix<double> == null)
+        //            throw new TypeAccessException();
+        //        if (m1.N != m2.N || m1.M != m2.M)
         //            throw new IndexOutOfRangeException();
         //        Matrix<double> m3 = new Matrix<double>();
         //        for (int i = 0; i < m1.N; i++)
         //            for (int j = i; j < m1.M; j++)
         //            {
-        //                m3[i,j] = (double)m1[i, j] + m2[i, j];
+        //                m3[i, j] = m1[i, j] + m2[i, j];
         //            }
         //        return m3;
         //    }
-        //    catch(IndexOutOfRangeException e)
+        //    catch (IndexOutOfRangeException e)
         //    {
-        //        Console.WriteLine("Matrixes have different sizes. "+e.Message);
+        //        Console.WriteLine("Matrixes have different sizes. " + e.Message);
         //    }
-        //    catch(Exception e)
+        //    catch (TypeAccessException e)
+        //        Console.WriteLine("Wrong type. " + e.Message);
+        //    catch (Exception e)
         //    {
         //        Console.WriteLine(e.Message);
         //    }
-        //    return default (Matrix<double>);
+        //    return default(Matrix<double>);
         //}
     }
 }
